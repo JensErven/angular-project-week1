@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { ClothingItem } from '../interfaces/clothingItemModel';
+import { Component, Input, OnInit } from '@angular/core';
+import { ClothingItem } from '../models/clothing-item.model';
 import { CartService } from '../cart.service';
 
 @Component({
@@ -7,63 +7,20 @@ import { CartService } from '../cart.service';
   templateUrl: './items-list.component.html',
   styleUrls: ['./items-list.component.css'],
 })
-export class ItemsListComponent {
-  clothingItems: ClothingItem[] = [
-    {
-      id: 1,
-      name: 'Classic White T-Shirt',
-      description:
-        'A comfortable and stylish white cotton t-shirt for everyday wear.',
-      price: 20.0,
-      imageUrl: '/assets/t-shirt-white-abstract.jpeg', // Provide image URLs or adjust as needed
-    },
-    {
-      id: 2,
-      name: 'Slim Fit Blue Jeans',
-      description: 'Classic denim jeans with a slim fit design.',
-      price: 40.0,
-      imageUrl: '/assets/t-shirt-white-abstract.jpeg',
-    },
-    {
-      id: 3,
-      name: 'Casual Sneakers',
-      description: 'Versatile sneakers suitable for various occasions.',
-      price: 30.0,
-      imageUrl: '/assets/t-shirt-white-abstract.jpeg',
-    },
-    {
-      id: 4,
-      name: 'Formal Dress Shirt',
-      description: 'A formal dress shirt for professional and special events.',
-      price: 45.0,
-      imageUrl: '/assets/t-shirt-white-abstract.jpeg',
-    },
-    {
-      id: 5,
-      name: 'Athletic Shorts',
-      description:
-        'Comfortable athletic shorts for workouts and sports activities.',
-      price: 25.0,
-      imageUrl: '/assets/t-shirt-white-abstract.jpeg',
-    },
-    {
-      id: 6,
-      name: 'Formal Dress Shirt',
-      description: 'A formal dress shirt for professional and special events.',
-      price: 45.0,
-      imageUrl: '/assets/t-shirt-white-abstract.jpeg',
-    },
-    {
-      id: 5,
-      name: 'Athletic Shorts',
-      description:
-        'Comfortable athletic shorts for workouts and sports activities.',
-      price: 25.0,
-      imageUrl: '/assets/t-shirt-white-abstract.jpeg',
-    },
-  ];
+export class ItemsListComponent implements OnInit {
+  @Input() clothingItems: ClothingItem[] = [];
 
   constructor(private cartService: CartService) {}
+  ngOnInit(): void {
+    // Log the clothingItems array when the component initializes
+    console.log('Clothing Items:', this.clothingItems);
+  }
+  formatPrice(price: number): string {
+    return (price / 100).toLocaleString('en-US', {
+      style: 'currency',
+      currency: 'EUR',
+    });
+  }
 
   addToCart(item: ClothingItem) {
     this.cartService.addToCart(item);
