@@ -1,20 +1,27 @@
 <!-- items-list.component.html -->
-<div   *ngIf="clothingItems.length > 0"class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-8 mt-40 ">
+<div   *ngIf="clothingItems.length > 0"class="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 gap-8 my-40 sm:grid-cols-2 ">
   <!-- Use *ngFor to loop through the clothingItems array -->
   <div *ngFor="let item of clothingItems" class="bg-slate-100 p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 ease-in-out transform hover:scale-105 relative">
+    <div class="flex justify-between flex-col">
+      <div>
+        <img [src]="item.imageUrl" alt="{{item.imageUrl}}" class="mb-4 rounded-lg object-cover h-fit w-full hover:scale-110 transition-transform overflow-hidden hover:-translate-y-6 hover:shadow-xl duration-300 ease-in-out " />
+        <p><span class="font-bold text-3xl">    {{ formatPrice(item.price.unit_amount) }}</span></p>
+        <h2 class="text-xl font-semibold text-blue-600"></h2>
+    
+        <p class=" text-2xl capitalize">{{item.product.name}}</p>
+        <p class="text-md text-gray-500  mt-2 py-2 lowercase ">{{item.product.description }}</p>
+      </div>
+      <button
+      class="mt-4 bg-[#333] hover:bg-[#707070] text-[#fff] font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 uppercase transition duration-300"
+      (click)="addToCart(item)"
+    >
+        Add to Cart
+      </button>
+    
+    </div>
    
-    <img [src]="item.imageUrl" alt="{{item.imageUrl}}" class="mb-4 rounded-lg object-cover h-fit w-full hover:scale-110 transition-transform overflow-hidden hover:-translate-y-6 hover:shadow-xl duration-300 ease-in-out " />
-    <p><span class="font-bold text-3xl">    {{ formatPrice(item.price.unit_amount) }}</span></p>
-    <h2 class="text-xl font-semibold text-blue-600"></h2>
 
-    <p class=" text-2xl capitalize">{{item.product.name}}</p>
-    <p class="text-md text-gray-500  mt-2 py-2 lowercase ">{{item.product.description }}</p>
-
-    <button
-    class="mt-4 bg-[#333] hover:bg-[#707070] text-[#fff] font-bold py-2 px-4 rounded-lg focus:outline-none focus:ring-2 uppercase transition duration-300"
-    (click)="addToCart(item)"
-  >
-      Add to Cart
-    </button>
+  
   </div>
+  
 </div>
